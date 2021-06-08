@@ -1,21 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import noteReducer, { createNoteOf , updateImportantOf } from './reducers';
-
-const store = createStore(noteReducer);
-
+import { useSelector, useDispatch } from 'react-redux'
+import { createNoteOf , updateImportantOf } from './reducers/noteReducer';
 
 
 const App = () => {
+
+  const dispatch = useDispatch();
+  const notes = useSelector(state => state)
+
   const addNote = (event) => {
     event.preventDefault();
     const content = event.target.note.value;
     event.target.note.value = '';
-    store.dispatch(createNoteOf(content))
+    dispatch(createNoteOf(content))
   }
   const toggleImportance = (id) => {
-    store.dispatch( updateImportantOf(id) )
+    dispatch( updateImportantOf(id) )
   }
 
 
@@ -26,7 +26,7 @@ const App = () => {
         <button type="submit"> add </button>
       </form>
       <ul>
-        {store.getState().map( note => 
+        {notes.map( note => 
            <li 
             key={ note.id }
             onClick={() => { toggleImportance(note.id) }}
@@ -42,20 +42,20 @@ const App = () => {
 
 
 
-const render = () => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-}
+// const render = () => {
+//   ReactDOM.render(
+//     <React.StrictMode>
+//       <App />
+//     </React.StrictMode>,
+//     document.getElementById('root')
+//   );
+// }
 
-store.subscribe(()=>{
-  console.log(store.getState())
-  render();
-})
+// store.subscribe(()=>{
+//   console.log(store.getState())
+//   render();
+// })
 
-render();
+// render();
 
 export default App;
