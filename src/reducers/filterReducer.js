@@ -15,5 +15,5 @@ const filterChange = (value) => {
     }
 }
 
-export {filterChange}
+export { filterChange };
 export default filterReducer;

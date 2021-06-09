@@ -20,7 +20,6 @@ const store = createStore(
   composeWithDevTools()
 );
 
-store.subscribe(()=>{ console.log(store.getState())})
 
 ReactDOM.render(
   <React.StrictMode>

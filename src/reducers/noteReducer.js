@@ -1,9 +1,5 @@
-const notes= [
-    { content: 'reducer defines how redux store works', important: true, id: 1},
-    { content: 'state of store can contain any data', important: false, id: 2}
-  ]
 
-const noteReducer = ( state = notes, action ) => {
+const noteReducer = ( state = [], action ) => {
     switch (action.type) {
         case 'NEW_NOTE':
             return  [...state, action.data];
@@ -20,23 +16,26 @@ const noteReducer = ( state = notes, action ) => {
                 return [...newNotes]
              
         }
+        case 'LOAD_NOTES':
+            return  action.data
         default:
             return state;
     }
 }
 
-const generateId = () => {
-    return Math.floor(Math.random() * 1000);
+
+
+const loadNotes = (data) => {
+    return {
+        type: 'LOAD_NOTES',
+        data
+    }
 }
 
 const createNoteOf = ( content ) => {
     return {
         type: 'NEW_NOTE',
-        data: {
-          content,
-          important: false,
-          id: generateId()
-        }
+        data: content
     }
 }
 
@@ -49,6 +48,5 @@ const updateImportantOf = ( id ) => {
     }
 }
 
-export { createNoteOf , updateImportantOf }
-
+export { createNoteOf , updateImportantOf ,loadNotes };
 export default noteReducer;
