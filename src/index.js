@@ -4,10 +4,23 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import noteReducer from './reducers/noteReducer';
+import filterReducer from './reducers/filterReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(noteReducer);
+
+const reducers = combineReducers({
+  notes: noteReducer, 
+  filter: filterReducer
+});
+
+const store = createStore(
+  reducers, 
+  composeWithDevTools()
+);
+
+store.subscribe(()=>{ console.log(store.getState())})
 
 ReactDOM.render(
   <React.StrictMode>
