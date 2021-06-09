@@ -6,8 +6,6 @@ import FilterNotes from './components/filterNotes';
 
 
 const App = () => {
-
-
   return (
     <div className="container">
       <NewNote/>
