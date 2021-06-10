@@ -11,8 +11,7 @@ const NewNote = (_props) => {
         event.preventDefault();
         const content = event.target.note.value;
         event.target.note.value = '';
-        const newNote = await createNew({content, important: false });
-        dispatch(createNoteOf(newNote))
+        dispatch(createNoteOf(content));
     }
 
     return  (

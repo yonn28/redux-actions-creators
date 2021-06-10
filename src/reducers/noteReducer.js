@@ -1,3 +1,5 @@
+import { getAll, createNew } from '../services/notes';
+
 
 const noteReducer = ( state = [], action ) => {
     switch (action.type) {
@@ -25,17 +27,24 @@ const noteReducer = ( state = [], action ) => {
 
 
 
-const loadNotes = (data) => {
-    return {
-        type: 'LOAD_NOTES',
-        data
+const loadNotes = () => {
+    return async dispatch => {
+        const data = await getAll();
+        dispatch ({
+            type: 'LOAD_NOTES',
+            data
+        });
     }
+
 }
 
 const createNoteOf = ( content ) => {
-    return {
-        type: 'NEW_NOTE',
-        data: content
+    return async dispatch => {
+        const newNote = await createNew({content, important: false });
+        dispatch({
+            type: 'NEW_NOTE',
+            data: newNote
+        });
     }
 }
 
